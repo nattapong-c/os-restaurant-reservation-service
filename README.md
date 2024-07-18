@@ -72,7 +72,7 @@ $ yarn test:cov
 
 ## Environment Variables
 
-- `PORT` custom service port (default: 3001)
+- `PORT` custom service port (default: 3000)
 
 ## Packages in project
 
