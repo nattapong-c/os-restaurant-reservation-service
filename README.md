@@ -32,42 +32,121 @@
 $ yarn install
 ```
 
+or
+
+```bash
+$ yarn install --frozen-lockfile
+```
+
 ## Running the app
 
 ```bash
 # development
-$ yarn run start
+$ yarn start
 
 # watch mode
-$ yarn run start:dev
+$ yarn start:dev
 
 # production mode
-$ yarn run start:prod
+$ yarn start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ yarn run test
+$ yarn test
 
 # e2e tests
-$ yarn run test:e2e
+$ yarn test:e2e
 
 # test coverage
-$ yarn run test:cov
+$ yarn test:cov
 ```
 
-## Support
+## Running the app with Docker
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```
 
-## Stay in touch
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Packages in project
 
-## License
+- class-transformer - transform body request object to class
+- class-validator - validate body request
+- uuid - generate UUID
 
-Nest is [MIT licensed](LICENSE).
+## Folder Structure
+
+In this project, It is base on haxagonal architecture design
+
+```
+  src
+    ├── application               # Service files contain business logic
+    ├── domain
+          ├── model               # Model files, type, enum used in services
+          ├── ports
+                ├── inbound       # Interface files for services
+                ├── outbound      # Interface files for repository
+    ├── infrastructure            # Repository files for database or third-party api
+    ├── interface                 # Controller files
+          ├── dto                 # DTO files (request body and validation)
+    ├── test                      # e2e test files
+  └── README.md
+```
+
+## API Reference
+
+#### Setup Table
+
+```http
+  POST /api/v1/table
+```
+
+JSON body
+
+| Key     | Type     | Description                    |
+| :------ | :------- | :----------------------------- |
+| `table` | `number` | **Required**. Number of tables |
+
+#### Reserve Table
+
+```http
+  POST /api/v1/booking
+```
+
+JSON body
+
+| Key        | Type     | Description                       |
+| :--------- | :------- | :-------------------------------- |
+| `customer` | `number` | **Required**. Number of customers |
+
+#### Cancel Booking
+
+```http
+  DELETE /api/v1/booking/{booking_number}
+```
+
+Param
+
+| Key              | Type     | Description                               |
+| :--------------- | :------- | :---------------------------------------- |
+| `booking_number` | `string` | **Required**. Booking number (Ex. OS0001) |
+
+JSON body
+
+| Key        | Type     | Description                       |
+| :--------- | :------- | :-------------------------------- |
+| `customer` | `number` | **Required**. Number of customers |
+
+#### Get Booking Info
+
+```http
+  GET /api/v1/booking/{booking_number}
+```
+
+Param
+
+| Key              | Type     | Description                               |
+| :--------------- | :------- | :---------------------------------------- |
+| `booking_number` | `string` | **Required**. Booking number (Ex. OS0001) |
