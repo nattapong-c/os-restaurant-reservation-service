@@ -8,7 +8,7 @@ import { BookingService } from './booking.service';
 import { TableModel } from 'src/domain/model/table';
 import { BookingModel } from 'src/domain/model/booking';
 
-describe('Table Service', () => {
+describe('Booking Service', () => {
     let bookingService: BookingService;
     let bookingRepository: BookingRepositoryInterface;
     let tableRepository: TableRepositoryInterface;
@@ -34,7 +34,7 @@ describe('Table Service', () => {
         tableRepository = app.get<TableRepositoryInterface>(TableRepositoryInterface);
     });
 
-    describe('Reserve Table Service', () => {
+    describe('Reserve Booking Service', () => {
         it('should throw error table not enough', () => {
             const CUSTOMER = 6;
             const TABLE: TableModel = { total: 4, remain: 0 };
@@ -84,7 +84,7 @@ describe('Table Service', () => {
         });
     });
 
-    describe('Cancel Table Service', () => {
+    describe('Cancel Booking Service', () => {
         it('should throw error booking not found', () => {
             const TABLE: TableModel = { total: 4, remain: 3 };
             jest.spyOn(tableRepository, 'get').mockImplementation(() => TABLE);
@@ -132,6 +132,41 @@ describe('Table Service', () => {
             const result = bookingService.cancel("OS0001");
             expect(result.freed_tables).toBe(2);
             expect(result.remain_tables).toBe(4);
+        });
+    });
+
+    describe('Get Booking Service', () => {
+        beforeEach(() => {
+            const TABLE: TableModel = { total: 4, remain: 2 };
+
+            jest.spyOn(tableRepository, 'get').mockImplementation(() => TABLE);
+
+        });
+
+        it('should return booking not found', () => {
+            jest.spyOn(bookingRepository, 'get').mockImplementation(() => undefined);
+            try {
+                bookingService.get("OS0099")
+            } catch (error) {
+                expect(error.message).toBe('booking not found');
+            }
+        });
+
+        it('should return booking info', () => {
+            const BOOKING: BookingModel = {
+                "id": "278eb461-7e85-4cc2-8839-a3dd792a7915",
+                "customers": 5,
+                "tables": 2,
+                "booking_date": new Date(),
+                "booking_number": "OS0001",
+                "cancel_date": new Date()
+            };
+
+            jest.spyOn(bookingRepository, 'get').mockImplementation(() => BOOKING);
+
+            const result = bookingService.get("OS0001");
+            expect(result.id).toBe("278eb461-7e85-4cc2-8839-a3dd792a7915");
+            expect(result.booking_number).toBe("OS0001");
         });
     });
 })
