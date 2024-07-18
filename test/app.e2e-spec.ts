@@ -159,5 +159,18 @@ describe('AppController (e2e)', () => {
     const error = JSON.parse(result.error['text'])
     expect(error.message).toBe('booking cancel already');
     expect(result.status).toBe(400);
-  })
+  });
+
+  it('POST v1/booking, reserve 2 table success', async () => {
+    const result = await request(app.getHttpServer())
+      .post('/v1/booking')
+      .send({
+        customer: 6
+      });
+
+    expect(result.body.data.customers).toBe(6);
+    expect(result.body.data.tables).toBe(2);
+    expect(result.body.data.remain_tables).toBe(2);
+    expect(result.body.data.booking_number).toBe('OS0004');
+  });
 });
