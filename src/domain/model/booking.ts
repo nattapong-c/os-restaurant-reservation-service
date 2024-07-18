@@ -10,3 +10,8 @@ export interface BookingModel extends BookingResponse {
     id: string;
     cancel_date?: Date;
 }
+
+export interface CancelResponse {
+    remain_tables: number;
+    freed_tables: number;
+}

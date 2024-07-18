@@ -30,4 +30,12 @@ export class TableRepository implements TableRepositoryInterface {
         this.logger.log('get table info');
         return this.table;
     }
+
+    update(remain: number): void {
+        this.logger.log('update remain table');
+        this.logger.debug('remain');
+        this.logger.debug(remain);
+
+        this.table.remain = remain;
+    }
 }

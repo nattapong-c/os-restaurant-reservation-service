@@ -6,12 +6,15 @@ import { TableRepository } from './infrastructure/table.repository';
 import { TableController } from './interface/table.controller';
 import { BookingRepositoryInterface } from './domain/ports/outbound/booking.repository';
 import { BookingRepository } from './infrastructure/booking.repository';
+import { BookingController } from './interface/booking.controller';
+import { BookingService } from './application/booking.service';
 
 @Module({
   imports: [],
-  controllers: [TableController],
+  controllers: [TableController, BookingController],
   providers: [
     TableService,
+    BookingService,
     {
       provide: TableRepositoryInterface,
       useClass: TableRepository

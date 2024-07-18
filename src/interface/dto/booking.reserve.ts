@@ -1,6 +1,6 @@
 import { IsPositive } from "class-validator";
 
-export class TableSetupDto {
+export class BookingReserveDto {
     @IsPositive()
-    table: number;
+    customer: number;
 }

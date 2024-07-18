@@ -15,7 +15,7 @@ export class TableController {
     setup(@Body() body: TableSetupDto) {
         this.logger.log('request to setup table');
 
-        const result = this.tableService.setup(body.total_table);
+        const result = this.tableService.setup(body.table);
         return new Response().setData(result);
     }
 }
