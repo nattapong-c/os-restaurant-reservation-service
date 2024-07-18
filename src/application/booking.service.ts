@@ -46,6 +46,11 @@ export class BookingService implements BookingServiceInterface {
             throw new HttpException('booking not found', HttpStatus.NOT_FOUND);
         }
 
+        if (booking.cancel_date) {
+            this.logger.warn(`booking ${bookingNumber} canceled already`);
+            throw new HttpException('booking cancel already', HttpStatus.BAD_REQUEST);
+        }
+
         let remainTable = this.tableRepository.get().remain;
         remainTable += booking.tables;
         this.bookingRepository.cancel(bookingNumber);

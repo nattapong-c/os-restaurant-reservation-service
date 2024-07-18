@@ -96,6 +96,26 @@ describe('Table Service', () => {
                 expect(error.message).toBe('booking not found');
             }
         });
+        it('cancel failed, should throw error cancel already', () => {
+            const TABLE: TableModel = { total: 4, remain: 2 };
+            const BOOKING: BookingModel = {
+                "id": "278eb461-7e85-4cc2-8839-a3dd792a7915",
+                "customers": 5,
+                "tables": 2,
+                "booking_date": new Date(),
+                "booking_number": "OS0001",
+                "cancel_date": new Date()
+            };
+
+            jest.spyOn(tableRepository, 'get').mockImplementation(() => TABLE);
+            jest.spyOn(bookingRepository, 'get').mockImplementation(() => BOOKING);
+
+            try {
+                bookingService.cancel('OS0001');
+            } catch (error) {
+                expect(error.message).toBe('booking cancel already');
+            }
+        });
         it('cancel success, should return table info', () => {
             const TABLE: TableModel = { total: 4, remain: 2 };
             const BOOKING: BookingModel = {
