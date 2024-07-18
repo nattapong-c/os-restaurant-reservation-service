@@ -70,6 +70,10 @@ $ yarn test:cov
 
 ```
 
+## Environment Variables
+
+- `PORT` custom service port (default: 3001)
+
 ## Packages in project
 
 - class-transformer - transform body request object to class
