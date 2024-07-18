@@ -1,6 +1,7 @@
+import { Test, TestingModule } from '@nestjs/testing';
+
 import { TableService } from './table.service';
 import { TableRepository } from '../infrastructure/table.repository';
-import { Test, TestingModule } from '@nestjs/testing';
 import { TableRepositoryInterface } from '../domain/ports/outbound/table.repository';
 import { BookingRepositoryInterface } from '../domain/ports/outbound/booking.repository';
 import { BookingRepository } from '../infrastructure/booking.repository';
