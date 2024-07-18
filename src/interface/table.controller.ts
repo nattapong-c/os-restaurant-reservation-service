@@ -1,7 +1,7 @@
 import { Body, Controller, Logger, Post } from "@nestjs/common";
 
-import { TableService } from "src/application/table.service";
-import { Response } from "src/domain/model/response";
+import { TableService } from "../application/table.service";
+import { Response } from "../domain/model/response";
 import { TableSetupDto } from "./dto/table.setup";
 
 @Controller('v1/table')
