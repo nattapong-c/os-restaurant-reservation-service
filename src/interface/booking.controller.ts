@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Logger, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Logger, Param, Post } from "@nestjs/common";
 
 import { BookingService } from "../application/booking.service";
 import { BookingReserveDto } from "./dto/booking.reserve";
@@ -26,5 +26,13 @@ export class BookingController {
         const result = this.bookingService.cancel(bookingNumber);
 
         return new Response().setData(result)
+    }
+
+    @Get(':booking_number')
+    get(@Param('booking_number') bookingNumber: string) {
+        this.logger.log('request to get booking info');
+        const result = this.bookingService.get(bookingNumber);
+
+        return new Response().setData(result);
     }
 }

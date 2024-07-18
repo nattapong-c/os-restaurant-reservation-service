@@ -53,14 +53,11 @@ export class BookingRepository implements BookingRepositoryInterface {
         return booking;
     }
 
-    cancel(bookingNumber: string): BookingModel {
+    cancel(bookingNumber: string): void {
         this.logger.log(`cancel booking ${bookingNumber}`);
         const booking = this.booking.find(item => item.booking_number === bookingNumber);
-        if (!booking) {
-            return undefined
+        if (booking) {
+            booking.cancel_date = new Date();
         }
-
-        booking.cancel_date = new Date();
-        return booking;
     }
 }

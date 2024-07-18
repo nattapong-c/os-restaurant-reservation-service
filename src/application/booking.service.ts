@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Inject, Logger } from "@nestjs/common";
 
-import { BookingResponse, CancelResponse } from "../domain/model/booking";
+import { BookingModel, BookingResponse, CancelResponse } from "../domain/model/booking";
 import { BookingServiceInterface } from "../domain/ports/inbound/booking.service";
 import { BookingRepositoryInterface } from "../domain/ports/outbound/booking.repository";
 import { TableRepositoryInterface } from "../domain/ports/outbound/table.repository";
@@ -48,11 +48,25 @@ export class BookingService implements BookingServiceInterface {
 
         let remainTable = this.tableRepository.get().remain;
         remainTable += booking.tables;
+        this.bookingRepository.cancel(bookingNumber);
         this.tableRepository.update(remainTable);
 
         return {
             freed_tables: booking.tables,
             remain_tables: remainTable
+        }
+    }
+
+    get(bookingNumber: string): BookingModel {
+        const booking = this.bookingRepository.get(bookingNumber);
+        if (!booking) {
+            this.logger.warn(`booking ${bookingNumber} not found`);
+            throw new HttpException('booking not found', HttpStatus.NOT_FOUND);
+        }
+
+        return {
+            ...booking,
+            remain_tables: this.tableRepository.get().remain
         }
     }
 }
