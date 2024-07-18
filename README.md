@@ -66,8 +66,16 @@ $ yarn test:cov
 
 ## Running the app with Docker
 
+Build image
+
+```
+  docker build -t restuarant-service:latest .
 ```
 
+Run image
+
+```
+  docker run --name restaurant-service -p 3000:3000 -d restuarant-service:latest
 ```
 
 ## Environment Variables
