@@ -51,6 +51,20 @@ $ yarn start:dev
 $ yarn start:prod
 ```
 
+## Running the app with Docker
+
+Build image
+
+```
+  docker build -t restaurant-service:latest .
+```
+
+Run image
+
+```
+  docker run --name restaurant-service -p 3000:3000 -d restaurant-service:latest
+```
+
 ## Test
 
 ```bash
@@ -62,20 +76,6 @@ $ yarn test:e2e
 
 # test coverage
 $ yarn test:cov
-```
-
-## Running the app with Docker
-
-Build image
-
-```
-  docker build -t restuarant-service:latest .
-```
-
-Run image
-
-```
-  docker run --name restaurant-service -p 3000:3000 -d restuarant-service:latest
 ```
 
 ## Environment Variables
